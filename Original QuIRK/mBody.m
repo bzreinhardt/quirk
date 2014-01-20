@@ -87,6 +87,31 @@ classdef mBody < hgsetget
                             name = 'defaultBodyName';
                         end
                         mbod.bodyNames = [mbod.bodyNames {name}];
+             %added cases for magnet and plate so mbody will treat them
+             %like bodies
+                    case 'magnet'
+                        varargin{i}.clearParent;
+                        varargin{i}.setParent(mbod);
+                        mbod.bodies = [mbod.bodies {varargin{i}}];
+                        mbod.numBodies = mbod.numBodies + 1;
+                        mbod.numStates = mbod.numStates + 14;
+                        name = inputname(i+1);
+                        if isempty(name)
+                            name = 'defaultBodyName';
+                        end
+                        mbod.bodyNames = [mbod.bodyNames {name}];
+                        
+                    case 'plate'
+                        varargin{i}.clearParent;
+                        varargin{i}.setParent(mbod);
+                        mbod.bodies = [mbod.bodies {varargin{i}}];
+                        mbod.numBodies = mbod.numBodies + 1;
+                        mbod.numStates = mbod.numStates + 14;
+                        name = inputname(i+1);
+                        if isempty(name)
+                            name = 'defaultBodyName';
+                        end
+                        mbod.bodyNames = [mbod.bodyNames {name}];
                         
                     case 'joint'
                         mbod.joints = [mbod.joints {varargin{i}}];
@@ -531,6 +556,23 @@ classdef mBody < hgsetget
                 while i <= numel(varargin) && ~ischar(varargin{i})
                     switch class(varargin{i})
                         case 'body'
+                            bodyList(i) = true;
+                            name = inputname(i);
+                            if isempty(name)
+                                name = 'defaultBodyName';
+                            end
+                            mbod.bodyNames = [mbod.bodyNames {name}];
+                            %BENCHANGE 9/10 added cases for magnet and
+                            %plate
+                        case 'magnet'
+                            bodyList(i) = true;
+                            name = inputname(i);
+                            if isempty(name)
+                                name = 'defaultBodyName';
+                            end
+                            mbod.bodyNames = [mbod.bodyNames {name}];
+                        
+                        case 'plate'
                             bodyList(i) = true;
                             name = inputname(i);
                             if isempty(name)
