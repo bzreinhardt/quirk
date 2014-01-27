@@ -1,0 +1,16 @@
+Todo: Item (add date)
+
+URGENT: Get spinning magnet to replicate observed behavior (1/22)
+URGENT: Get translating permanent magnet to work too
+
+
+Make plateforce into a standalone function? (1/22)
+Make set functions which automatically update the linked objects (1/22)
+
+Log: discovered problem - magFlux.m assumes m is a vector, while vxB was giving it a quaternion. 
+Need to get everything to be consistent - what is the best way to do that?
+
+Move the current generating integrals into their own function
+
+Change the integration method around a loop to trapz and on the face to trapz - matlab integrator doesn't buy you anything I think
+
