@@ -1,30 +1,46 @@
-function [ component ] = vxB(x,y,z, mMag_bod, xMag_bod, omMag_bod,vMag_bod,axis)
+function [ vxB_out ] = vxB(X,xMag,mMag,vMag,varargin)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
-%r = [x;y;z];
-%om_x = [0 -omMag_bod(3) omMag_bod(2); omMag_bod(3) 0 -omMag_bod(1); -omMag_bod(2) omMag_bod(1) 0];
-%vel = vMag_bod - cross(omMag_bod,r);
+%inputs:
+%x,y,z are the positions in the current frame to find vxB
+%mMag_bod is the magnet's dipole vector (magnitude and direction)
+%xMag_bod is the magnet's position in the body frame
+%omMag_bod is the magnet's angular velocity in the body frame
+%vMag_bod is the magnet's linear velocity in the body frame
+%axis is a scalar indicating which component we're interested in
+
+%Assumption: v is a matrix of the velocities of the magnetic field at each
+%point in X
+
+
 %vel = vMag_bod - om_x*r;
-velx = vMag_bod(1) - (-omMag_bod(3)*y+omMag_bod(2)*z);
-vely = vMag_bod(2) - (omMag_bod(3)*x - omMag_bod(1)*z);
-velz = vMag_bod(3) - (-omMag_bod(2)*x + omMag_bod(1)*y);
-B = magFlux(x,y,z,xMag_bod,mMag_bod);
+
+if size(varargin) ~= 0
+    axis = varargin;
+end
+if size(vMag,2) == 1 && size(X,2) ~=1
+    vMag = vMag*ones(1,size(X,2));
+end
+% omegaX = [0 -omega(3) omega(2); 
+%           omega(3) 0 -omega(1);
+%           -omega(2) omega(1) 0];
+
+B = magFlux(X,xMag,mMag);
 
 %v_x = [0 -velz vely; velz 0 -velx; -vely velx 0];
 %vCrossB = v_x*B;
-vCrossBx = -velz*B(2)+vely*B(3);
-vCrossBy = velz*B(1) -velx*B(3);
-vCrossBz = -vely*B(1) + velx*B(2);
+vxB_out = cross(vMag,B,1);
 
 
 
-switch axis
-    case 'x'
-        component = vCrossBx;
-    case 'y'
-        component = vCrossBy;
-    case 'z'
-        component = vCrossBz;
-
+if exist('axis','var')
+    switch axis
+        case 'x'
+            vxB_out = vxB_out(1,:);
+        case 'y'
+             vxB_out = vxB_out(2,:);
+        case 'z'
+             vxB_out = vxB_out(3,:);
+    end
 end
 
