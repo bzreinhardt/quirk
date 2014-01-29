@@ -1,0 +1,3 @@
+Positions always a vector in the frame of whatever object is running fcn
+How to do dipoles - right now stored as a quaternion of the orientation of
+the magnet. perhaps separate it and have it as a unit vector?
