@@ -7,7 +7,7 @@
 %x9 [0.886461272161623;0.279324391468524;0.000206072930174052;0.137851588520475;5.85933055246332e-05;0.652912592831129;0.245160869056772;]
 
 %% increasing amplitude sinusoid as you increase i_23/i_1 FIG 7
-load('fig7.mat');
+load('test data/fig7.mat');
 
 phase1 = 0; %phase of the EM - all phases are relative
 phase2 = pi/4; %phase of the new pair of magnets - relative to other magnet phases
@@ -109,7 +109,7 @@ linkaxes(fig7_axes2,'x');
 %%
 % TODO -as you increase i_23 at phase_max force (theta = -75), 
 % force in z direction increases linearly with i_1, but with diminishing returns (d_slope/d_i1 < 0) FIG 8a
-load('fig8a.mat');
+load('test data/fig8a.mat');
 %right now theta_max = -15 - need to fix that eventually
 [c,i] = max(fig7_rep(:,1));
 
@@ -182,7 +182,7 @@ linkaxes(fig8a_axes2,'x');
 % TODO -as you increase i_23 at phase_min force (theta = 105 degrees) 
 % force decreases linearly with i_1 with increasing returns (d_slope/di_1 > 1) FIG 8b
 % 
-load('fig8b.mat');
+load('test data/fig8b.mat');
 %for now it looks like the phase offset with the largest negative (min)
 %force is ~160
 [c,i] = min(fig7_rep(:,1));
@@ -256,7 +256,7 @@ linkaxes(fig8b_axes2,'x');
 
 %Need to modulate how force depends on frequency figure doesn't agree
 
-load('fig9.mat');
+load('test data/fig9.mat');
 
 freqs = [60 120 180 240 300 360];
 
@@ -330,7 +330,7 @@ linkaxes(fig9_axes2,'x');
 % TODO -increasing plate thickness has the same effect as increasing excitation frequency
 % - increasing amplitude of force with phase difference but decreaing offset FIG 10
 
-load('fig10.mat');
+load('test data/fig10.mat');
 
 depths = 0.001*[0.1 0.5 1 5];
 
