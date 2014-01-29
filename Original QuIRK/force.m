@@ -63,8 +63,10 @@ classdef force < hgsetget
                     end
                     if nargin(F) ~= 3
                         error('FORCE:force:input', 'Force must be a function of (body1, body2, t).')
-                    elseif all(size(F(body, body, 0)) ~= [3 1])
-                        error('FORCE:force:input', 'Force function must return a 3x1 matrix.')
+                      %TODO need to set up this check so that it doesn't
+                      %require just bodies
+%                     elseif all(size(F(body, body, 0)) ~= [3 1])
+%                         error('FORCE:force:input', 'Force function must return a 3x1 matrix.')
                     end
                     fc.F = F;
                 end
@@ -74,8 +76,10 @@ classdef force < hgsetget
                     end
                     if nargin(T) ~= 3
                         error('FORCE:force:input', 'Torque must be a function of (body1, body2, t).')
-                    elseif all(size(T(body, body, 0)) ~= [3 1])
-                        error('FORCE:force:input', 'Torque function must return a 3x1 matrix.')
+                        %TODO need to set up this check so that it doesn't
+                      %require just bodies
+%                     elseif all(size(T(body, body, 0)) ~= [3 1])
+%                         error('FORCE:force:input', 'Torque function must return a 3x1 matrix.')
                     end
                     fc.T = T;
                 end
