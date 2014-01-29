@@ -66,7 +66,7 @@ classdef plate < body
         %made them - it will make everything easier
         function plt = updateLoops(plt)
             for i = 1:length(plt.loops)
-                plt.loops{i} = plt.loops{i}.loopUpdate();
+                plt.loops{i}.loopUpdate();
             end
         end
     end

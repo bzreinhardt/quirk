@@ -5,9 +5,10 @@ classdef magnet < body
     properties
         %position % position of the magnet 
         %dipole   % unit vector of the diple
-        mag  = 0;    % magnitude of the current in manget
+        m  = 0;    % magnitude of the current in manget
         phase = 0;   % phase of the current in the magnet
         freq  = 0;   % frequency of the current in manget
+        
     end
     
     methods
@@ -26,7 +27,7 @@ classdef magnet < body
             set(obj,'sx',0.01);
             set(obj,'sy',0.01);
             set(obj,'sz',0.02);
-            obj.mag = mag;
+            obj.m = mag;
             obj.phase = phase;
             obj.freq = freq;
             
