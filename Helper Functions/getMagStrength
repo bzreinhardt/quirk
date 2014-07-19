@@ -1,0 +1,43 @@
+function [ pointFields ] = getMagStrength( )
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
+    
+    numMagnets = input('How many magnets?\n');
+
+    %initialize all magnets
+    magList = [];
+    for i=1:numMagnets
+        %initialize magnet
+        fprintf('Magnet %d Location Vector [x,y,z]:\n',i);
+        m.loc = input('');
+        fprintf('Magnet %d Orientation Quaternion:\n',i);
+        m.qquat = input('');
+        fprintf('Magnet %d Dipole strength coefficient:\n',i);
+        m.str = input('');
+        
+        magList = [magList m];
+    end
+    
+    %initialize all points
+    numPoints = input('How many points?\n');
+    pointList = [];
+    for i = 1:numPoints
+        fprintf('Vector for Point %d location: \n',i);
+        p.loc = input('');
+        p.field = [0,0,0];
+        pointList = [pointList p];
+    end
+        
+    %get Magnetic Field at given points (V.KEN)
+    pointFields = [];
+    for j=1:(numPoints)
+        p = pointList(j);
+        for k = 1:(numMagnets)
+            m = magList(k);
+            r = q2aa(m.qquat);
+            d = r*m.str;
+            flux = transpose(magFlux(p.loc(1), p.loc(2), p.loc(3), m.loc, d, 'all'));
+            p.field = plus(p.field,flux);
+        end
+        pointFields = [pointFields p];
+    end
