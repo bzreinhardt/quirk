@@ -1,0 +1,26 @@
+function [ pointFields ] = getMagStrength(magList,pointList)
+%getMagStrength: Gets magnetic field at specified points due to any given
+%number of dipoles
+%
+%   Inputs:  magList - [1xn] matrix of magnet objects containing fields:
+%                            loc - [x,y,z] location of magnet
+%                            str - scalar value of strngth of dipole   
+%                            qquat - [i,j,k,h] quaternion indicating
+%                                     orientation
+%            pointList - [1xm] matrix of point objects containing fields:
+%                            loc - [x,y,z] location of point
+%                            field - [x,y,z] initial field before magnets
+
+    %get Magnetic Field at given points (V.KEN)
+    pointFields = [];
+    for j=1:(numPoints)
+        p = pointList(j);
+        for k = 1:(numMagnets)
+            m = magList(k);
+            [vecx,vecy,vecz] = rotsurf(1,0,0,m.qquat);
+            dipolevec = [vecx,vecy,vecz]*m.str;
+            flux = transpose(magFlux(p.loc(1), p.loc(2), p.loc(3), m.loc, dipolevec, 'all'));
+            p.field = plus(p.field,flux);            
+        end
+        pointFields = [pointFields p];
+    end
