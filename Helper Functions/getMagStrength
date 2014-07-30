@@ -13,9 +13,9 @@ function [ pointFields ] = getMagStrength(magList,pointList)
 
     %get Magnetic Field at given points (V.KEN)
     pointFields = [];
-    for j=1:(numPoints)
+    for j=1:length(pointList)
         p = pointList(j);
-        for k = 1:(numMagnets)
+        for k = 1:length(magList)
             m = magList(k);
             [vecx,vecy,vecz] = rotsurf(1,0,0,m.qquat);
             dipolevec = [vecx,vecy,vecz]*m.str;
